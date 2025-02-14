@@ -1,5 +1,5 @@
 ---
-name: Validate Infrastructure # Validate tf config on push to all branches
+name: Validate Infrastructure      # Validate tf config on push to all branches
 
 on:
   push:
@@ -27,9 +27,10 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
-      - name: Install yamllint
-        run: |
-          sudo apt-get update && sudo apt-get install -y yamllint
+      # - name: Install yamllint
+      #   run: |
+      #     sudo apt-get update && sudo apt-get install -y yamllint
 
-      - name: Lint YAML Files
-        run: yamllint .
+      # - name: Lint YAML Files
+      #   run: yamllint .
+

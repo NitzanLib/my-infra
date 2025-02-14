@@ -1,5 +1,5 @@
 ---
-name: Deploy Infrastructure              ## Deploy infra via TF on push to main + validation is completed successfully
+name: Deploy Infrastructure     ## Deploy infra via TF on push to main + validation is completed successfully
 
 on:
   workflow_run:
