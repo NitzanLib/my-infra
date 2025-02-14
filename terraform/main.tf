@@ -7,7 +7,7 @@ module "eks" {
   version = "20.0.0"
 
   cluster_name                   = "my-eks-cluster"
-  cluster_version                = "1.27"
+  cluster_version                = "1.31"
   cluster_endpoint_public_access = true
 
   vpc_id     = aws_vpc.eks_vpc.id
@@ -15,21 +15,34 @@ module "eks" {
 
   enable_irsa = true
 
-  # Use self-managed node groups as a workaround for the node_groups error.
-  self_managed_node_groups = [
-    {
-      name                      = "worker-nodes"
-      desired_capacity          = 2
-      min_capacity              = 2
-      max_capacity              = 3
-      instance_types            = ["t3.medium"]
-      subnet_ids                = aws_subnet.private_subnets[*].id
+  access_entries = {
+    # One access entry with a policy associated
+    example = {
+      kubernetes_groups = []
+      principal_arn     = "arn:aws:iam::424579921836:user/nitzanl"
 
-      # Ensure the launch template name prefix is at least 3 characters.
-      launch_template_use_name_prefix = true
-      launch_template_name      = "worker-node"  # This string is > 3 characters.
+      policy_associations = {
+        example = {
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+          access_scope = {
+            namespaces = []
+            type       = "cluster"
+          }
+        }
+      }
     }
-  ]
+  }
+
+  eks_managed_node_groups = {
+    worker_nodes = {
+      key = "nitzan-kpem"
+      desired_capacity = 2
+      min_capacity     = 2
+      max_capacity     = 3
+      instance_types   = ["t3.medium"]
+      subnet_ids       = aws_subnet.private_subnets[*].id
+    }
+  }
 
   tags = {
     Name        = "my-eks-cluster"
@@ -44,3 +57,4 @@ output "cluster_endpoint" {
 output "cluster_id" {
   value = module.eks.cluster_id
 }
+
