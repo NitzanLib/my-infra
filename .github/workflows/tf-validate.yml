@@ -1,3 +1,4 @@
+---
 name: Validate Infrastructure
 
 on:
@@ -33,3 +34,4 @@ jobs:
 
       - name: Lint YAML Files
         run: yamllint .
+        
