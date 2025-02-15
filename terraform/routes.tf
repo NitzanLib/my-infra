@@ -1,3 +1,6 @@
+# routes.tf
+# this file defines the public and private route tables
+
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.eks_vpc.id
 

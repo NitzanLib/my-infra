@@ -1,3 +1,6 @@
+# subnets.tf
+# this file defines the public and private subnets
+
 resource "aws_subnet" "public_subnets" {
   count                   = 2
   vpc_id                  = aws_vpc.eks_vpc.id

@@ -1,3 +1,6 @@
+# outputs.tf
+# defines the outputs from the terrafrom run
+
 output "eks_cluster_name" {
   value = module.eks.cluster_name
 }

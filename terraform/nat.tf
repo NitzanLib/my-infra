@@ -1,3 +1,6 @@
+# nat.tf
+# defines elastic ip and nat gateway
+
 resource "aws_eip" "nat_eip" {
   domain = "vpc"
 }
